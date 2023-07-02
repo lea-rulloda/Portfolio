@@ -114,7 +114,8 @@ SELECT SoldAsVacant,
 		WHEN SoldAsVacant = 'N' THEN 'No'
 		ELSE SoldAsVacant
 	END
-FROM Portfolio.dbo.Housing_Data;
+FROM Portfolio.dbo.Housing_Data
+WHERE SoldAsVacant IN ('Y', 'N');
 
 UPDATE Housing_Data
 SET SoldAsVacant = CASE
@@ -136,7 +137,6 @@ WITH Duplicates AS (
 		) rownum
 	FROM Portfolio.dbo.Housing_Data
 )
-SELECT *
+DELETE
 FROM Duplicates
-WHERE rownum > 1
-ORDER BY PropertyAddress;
+WHERE rownum > 1;
